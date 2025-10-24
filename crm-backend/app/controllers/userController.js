@@ -75,6 +75,34 @@ exports.userLogin = async (req, res, next) => {
     }
 }
 
+
+//get all users with search
+exports.getUsers = async (req, res,next) => {
+    try {
+        const { search } = req.query;
+        // return res.status(200).json(search);
+        let users;
+        if (search) {
+            //filtering data based on 'search'
+            users = await User.find({
+                $or: [
+                    { name: { $regex: search, $options: "i" } },
+                    { contact_info: { $regex: search, $options: "i" } },
+                ],
+               
+            })
+        } else {
+            users = await User.find();
+        }
+       
+        res.status(200).json({ message: "users retrieved successfully", users })
+    } catch (error) {
+         next(error)
+    }
+
+}
+
+
 //user profile 
 exports.getUserProfile = async (req, res, next) => {
     try {
@@ -83,6 +111,65 @@ exports.getUserProfile = async (req, res, next) => {
         next(error)
     }
 }
+
+
+
+//delete user
+exports.deleteUser = async (req, res,next) => {
+    try {
+        const { id } = req.params;
+        const user = await User.findByIdAndDelete(id)
+        if (!user) {
+            return res.status(404).json({ message: "user not found" })
+        }
+        res.status(200).json({success:true, message: "user deleted successfully"})
+    } catch (error) {
+         next(error)
+    }
+
+}
+
+
+
+// user partial update
+exports.updateUser= async (req, res,next) => {
+
+    try {
+
+        const { id } = req.params;
+        const updates = req.body
+
+        // return res.status(200).json({updates});
+
+        const user = await User.findByIdAndUpdate(
+            id, updates, { new: true, runValidators: true }
+        )
+        if (!user) {
+            return res.status(404).json({ message: "user not found" })
+        }
+
+        return res.status(200).json({ message: "user  updated successfully ", user: user })
+
+
+    } catch (error) {
+        // Check for MongoDB duplicate key error
+        if (error.code === 11000) {
+            const field = Object.keys(error.keyValue)[0]; // e.g. 'email'
+            const value = error.keyValue[field];
+            return res.status(400).json({
+                success: false,
+                type: 'duplicate_field',
+                message: `The ${field} "${value}" is already in use. Please choose another ${field}.`
+            });
+        }
+
+        next(error); // pass other errors to the error handler
+    }
+
+}
+
+
+
 
 // logout user
 exports.userLogout = async (req, res, next) => {
@@ -94,5 +181,6 @@ exports.userLogout = async (req, res, next) => {
         next(error)
     }
 }
+
 
 

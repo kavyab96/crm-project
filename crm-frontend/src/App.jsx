@@ -14,6 +14,7 @@ import AuthLayout from './layout/AuthLayout';
 import Customer from './pages/CustomerIndex';
 import RequireAuth from './routes/UserRoute';
 import ErrorPage from './pages/ErrorPage';
+import User from './pages/UserIndex';
 
 
 const router = createBrowserRouter([
@@ -36,11 +37,12 @@ const router = createBrowserRouter([
     ]
   },
   {
-    element: <RequireAuth><AuthLayout/></RequireAuth>,
-    errorElement: <div>Something went wrong!</div>,
+    element: <RequireAuth><AuthLayout /></RequireAuth>,
+    // errorElement: <div>Something went wrong!</div>,
     children: [
-      { path: '/customers', element: <Customer/> },
-      { path: "*", element:<ErrorPage/> },
+      { path: '/customers', element: <Customer /> },
+      { path: '/users', element: <User /> },
+      { path: "*", element: <ErrorPage /> },
     ]
   }
 

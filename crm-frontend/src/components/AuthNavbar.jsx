@@ -31,7 +31,7 @@ export default function AuthNavbar() {
 
           <NavLink to="/customers" className="font-semibold">CRM Project</NavLink>
           <div>
-            <p className="text-sm text-gray-300">
+            <p className="text-sm dark:bg-gray-900  dark:text-white">
               {user?.name ? `Hello, ${user.name}` : 'Not signed in'}
             </p>
           </div>
@@ -43,11 +43,25 @@ export default function AuthNavbar() {
               to="/customers"
               className={({ isActive }) =>
                 isActive
-                  ? 'text-slate-200 font-semibold border-b-2 border-red-300 pb-1'
+                  ? ' dark:text-white dark:bg-gray-900 font-semibold border-b-2 border-red-300 pb-1'
                   : 'hover:text-red-400'
               }
             >
               Customers
+            </NavLink>
+          </li>
+
+
+          <li>
+            <NavLink
+              to="/users"
+              className={({ isActive }) =>
+                isActive
+                  ? ' dark:text-white dark:bg-gray-900 font-semibold border-b-2 border-red-300 pb-1'
+                  : 'hover:text-red-400'
+              }
+            >
+              Users
             </NavLink>
           </li>
 
