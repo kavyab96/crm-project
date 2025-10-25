@@ -42,9 +42,7 @@ const AdminDashboard = () => {
     return () => controller.abort()
   }, [])
 
-console.log(
-  data,'hyugeyfuguyee'
-);
+
 
 
   return (

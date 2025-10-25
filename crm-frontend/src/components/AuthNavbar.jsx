@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import {logoutUser} from '../services/userServices';
+import { toast } from 'react-toastify';
 
 export default function AuthNavbar() {
   const navigate = useNavigate()
@@ -19,7 +20,8 @@ export default function AuthNavbar() {
   const handleLogout = async() => {
     // clear local client auth (adjust if you use cookies/tokens)
     localStorage.removeItem('user')
-    const response = await logoutUser()   
+    const response = await logoutUser()  
+    toast.success("Logged out successfully"); 
 
     // navigate to public home (or login) after logout
     navigate('/')

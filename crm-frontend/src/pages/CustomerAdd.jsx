@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { addCustomer } from '../services/customerServices';
 import { X } from 'lucide-react'
+import { toast } from 'react-toastify';
 const CustomerAdd = ({ addCustomerModal, setAddCustomerModal, fetchCustomers }) => {
 
     // const [loading,setLoading]=useState(false)
@@ -33,12 +34,12 @@ const CustomerAdd = ({ addCustomerModal, setAddCustomerModal, fetchCustomers }) 
         try {
 
             const response = await addCustomer(formData)
-            alert("Customer added successfuly ");
+            toast.success("Customer added successfuly ");
             handleClose();
             fetchCustomers()
         } catch (error) {
             console.error("Error adding customer:", error.response?.data?.error);
-            alert("Failed to add customer. Please try again.");
+            toast.error("Failed to add customer. Please try again.");
         } finally {
             // setLoading(false);
         }

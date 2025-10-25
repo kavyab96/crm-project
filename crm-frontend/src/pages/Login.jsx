@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
+import { toast } from "react-toastify";
 
 const Login = () => {
 
@@ -42,7 +43,7 @@ const Login = () => {
         const response = await axios.post('http://localhost:3000/api/user/login', formData, {
           withCredentials: true
         })
-        alert("login successful ");
+        toast.success("login successful ");
         setErrors({});
         localStorage.setItem('user', JSON.stringify(response.data))
 

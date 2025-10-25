@@ -4,6 +4,7 @@ import { listCustomers, deleteCustomer } from '../services/customerServices'
 import Customer from './Customer'
 import CustomerEdit from './CustomerEdit'
 import CustomerFilter from './CustomerFilter'
+import { toast } from 'react-toastify'
 
 
 
@@ -47,10 +48,10 @@ const CustomerIndex = () => {
       await deleteCustomer(id)
       // Refresh customer list
       fetchCustomers()
-      alert("Customer deleted successfully");
+      toast.success("Customer deleted successfully");
     } catch (error) {
       console.error("Error deleting customer:", error);
-      alert("Failed to delete customer. Please try again.");
+      toast.error("Failed to delete customer. Please try again.");
     }
   };
 

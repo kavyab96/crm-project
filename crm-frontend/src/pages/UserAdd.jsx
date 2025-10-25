@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { addUser } from '../services/userService'
 import { XCircle } from 'lucide-react'
+import { toast } from 'react-toastify';
 
 const UserAdd = ({ addUserModal, setAddUserModal,fetchUsers }) => {
 
@@ -34,12 +35,12 @@ const UserAdd = ({ addUserModal, setAddUserModal,fetchUsers }) => {
         try {
 
             const response = await addUser(formData)
-            alert("User added successfuly ");
+            toast.success("User added successfuly ");
             handleClose();
             fetchUsers()
         } catch (error) {
             console.error("Error adding user:", error.response?.data?.error);
-            alert("Failed to add user. Please try again."); 
+            toast.error("Failed to add user. Please try again."); 
         } finally{
             // setLoading(false);
         }

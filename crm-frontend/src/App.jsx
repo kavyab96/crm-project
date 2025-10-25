@@ -6,6 +6,11 @@ import {
 } from "react-router-dom";
 
 
+//react-toastify
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 import Login from './pages/Login'
 import Home from './pages/Home'
 import Signup from './pages/Signup';
@@ -62,6 +67,9 @@ function App() {
     <div>
 
       <RouterProvider router={router} />
+       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} 
+       newestOnTop={false} closeOnClick pauseOnFocusLoss draggable pauseOnHover theme="colored"
+      />
     </div>
 
   )

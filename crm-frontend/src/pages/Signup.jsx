@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'
+import { toast } from 'react-toastify';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -19,8 +20,12 @@ const Signup = () => {
     let newErrors = {};
 
     // Name
+    // remove extra spaces
+    formData.name = formData.name.replace(/\s+/g, ' ').trim();
     if (!formData.name.trim()) {
       newErrors.name = "Name is required";
+    } else if (!/^[A-Za-z ]+$/.test(formData.name)) {
+      newErrors.name = "Name can only contain alphabets and spaces";
     }
 
     // Email
@@ -52,7 +57,7 @@ const Signup = () => {
 
   // Handle Submit
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
     setLoading(true)
     if (validate()) {
 
@@ -60,16 +65,17 @@ const Signup = () => {
         const response = await axios.post('http://localhost:3000/api/user/register', formData, {
           withCredentials: true
         })
-        alert("Signup successful ");
+        toast.success("Signup successful ");
+
         console.log('Signup successful:', response.data);
         localStorage.setItem('user', JSON.stringify(response.data))
-         setErrors({});
+        setErrors({});
         navigate('/login')
 
 
       } catch (error) {
-       
-         const backendError =
+
+        const backendError =
           error.response?.data?.error ||// your middleware's "error" key
           error.response?.data?.message || // general controller errors
           "Signup failed. Please try again.";
@@ -80,7 +86,7 @@ const Signup = () => {
       } finally {
         setLoading(false)
         setFormData({ name: "", email: "", phone: "", password: "" });
-       
+
 
       }
     }

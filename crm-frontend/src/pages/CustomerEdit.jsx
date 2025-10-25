@@ -1,6 +1,7 @@
 import React, { useState ,useEffect} from 'react'
 import { updateCustomer } from '../services/customerServices';
 import { X } from 'lucide-react'
+import { toast } from 'react-toastify';
 
 const CustomerEdit = ({ editCustomerModal, setEditCustomerModal,fetchCustomers,customer }) => {
 
@@ -40,12 +41,12 @@ const CustomerEdit = ({ editCustomerModal, setEditCustomerModal,fetchCustomers,c
 
         try {
             const response = await updateCustomer(customer._id,formData)
-            alert("Customer updated successfuly ");
+            toast.success("Customer updated successfuly ");
             handleClose();
             fetchCustomers()
         } catch (error) {
             console.error("Error adding customer:", error.response?.data?.error);
-            alert("Failed to add customer. Please try again."); 
+            toast.error("Failed to add customer. Please try again."); 
         } finally{
             // setLoading(false);
         }

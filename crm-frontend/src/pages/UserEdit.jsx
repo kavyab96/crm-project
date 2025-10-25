@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { updateUser } from '../services/userServices';
 import { X } from 'lucide-react'
+import { toast } from 'react-toastify';
 
 const UserEdit = ({ editUserModal, setEditUserModal, fetchUser, user }) => {
 
@@ -73,14 +74,14 @@ const UserEdit = ({ editUserModal, setEditUserModal, fetchUser, user }) => {
 
             try {
                 const response = await updateUser(user._id, formData)
-                alert("User updated successfuly ");
+                toast("User updated successfuly ");
                 handleClose();
                 fetchUser()
             } catch (error) {
                 console.error("Error adding user:", error.response?.data?.error);
                 const backendMessage = error.response?.data?.type === 'duplicate_field' && error.response?.data?.message
                 setBackendError(backendMessage);
-                // alert("Failed to update user. Please try again.");
+                toast.error("Failed to update user. Please try again.");
             } finally {
                 // setLoading(false);
             }

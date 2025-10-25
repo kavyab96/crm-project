@@ -4,6 +4,7 @@ import { listUsers, deleteUser } from '../services/userServices'
 import User from './User'
 import UserEdit from './UserEdit'
 import UserFilter from './UserFilter'
+import { toast } from 'react-toastify'
 
 
 
@@ -47,10 +48,10 @@ const UserIndex = () => {
       await deleteUser(id)
       // Refresh user list
       fetchUser()
-      alert("User deleted successfully");
+      toast.success("User deleted successfully");
     } catch (error) {
       console.error("Error deleting user:", error);
-      alert("Failed to delete user. Please try again.");
+      toast.error("Failed to delete user. Please try again.");
     }
   };
 
