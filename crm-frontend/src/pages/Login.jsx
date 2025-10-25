@@ -45,7 +45,12 @@ const Login = () => {
         alert("login successful ");
         setErrors({});
         localStorage.setItem('user', JSON.stringify(response.data))
+
+        if(response.data.role === 'admin'){
+          navigate('/admin-dashboard')
+        }else{
         navigate('/customers')
+        }
 
       } catch (error) {
         const backendError =

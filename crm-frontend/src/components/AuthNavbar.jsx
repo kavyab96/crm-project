@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
+import {logoutUser} from '../services/userServices';
 
 export default function AuthNavbar() {
   const navigate = useNavigate()
@@ -15,9 +16,11 @@ export default function AuthNavbar() {
     return () => window.removeEventListener('storage', onStorage)
   }, [])
 
-  const handleLogout = () => {
+  const handleLogout = async() => {
     // clear local client auth (adjust if you use cookies/tokens)
     localStorage.removeItem('user')
+    const response = await logoutUser()   
+
     // navigate to public home (or login) after logout
     navigate('/')
     // optional: force full reload to clear state/UI
@@ -38,6 +41,38 @@ export default function AuthNavbar() {
         </div>
 
         <ul className="flex gap-4 items-center">
+          {/* Show only if user-role is admin  starts*/}
+          {user.role === 'admin' && (
+            <>
+              <li>
+                <NavLink
+                  to="/admin-dashboard"
+                  className={({ isActive }) =>
+                    isActive
+                      ? ' dark:text-white dark:bg-gray-900 font-semibold border-b-2 border-red-300 pb-1'
+                      : 'hover:text-red-400'
+                  }
+                >
+                  Dashboard
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to="/users"
+                  className={({ isActive }) =>
+                    isActive
+                      ? ' dark:text-white dark:bg-gray-900 font-semibold border-b-2 border-red-300 pb-1'
+                      : 'hover:text-red-400'
+                  }
+                >
+                  Users
+                </NavLink>
+              </li>
+            </>
+          )}
+          {/* Show only if user-role is admin  ends*/}
+
           <li>
             <NavLink
               to="/customers"
@@ -52,18 +87,6 @@ export default function AuthNavbar() {
           </li>
 
 
-          <li>
-            <NavLink
-              to="/users"
-              className={({ isActive }) =>
-                isActive
-                  ? ' dark:text-white dark:bg-gray-900 font-semibold border-b-2 border-red-300 pb-1'
-                  : 'hover:text-red-400'
-              }
-            >
-              Users
-            </NavLink>
-          </li>
 
           <li>
             <button

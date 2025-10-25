@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { addUser } from '../services/userServices';
+import { addUser } from '../services/userService'
+import { XCircle } from 'lucide-react'
 
 const UserAdd = ({ addUserModal, setAddUserModal,fetchUsers }) => {
 
@@ -58,7 +59,8 @@ const UserAdd = ({ addUserModal, setAddUserModal,fetchUsers }) => {
                 {/* dialog close button  */}
                 <button onClick={handleClose} className='bg-white/20 backdrop-blur-md hover:bg-white/50 transition px-2 py-2 rounded-md fixed top-0 left-0' >
                     {/* <LuX size={20} className="text-slate-800" /> */}
-                    close
+                    {/* close */}
+                     <XCircle size={22} className="text-gray-700 dark:text-gray-200" />
                      </button>
                 {/* dialog close button  */}
 

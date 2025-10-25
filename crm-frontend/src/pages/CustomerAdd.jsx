@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { addCustomer } from '../services/customerServices';
-
-const CustomerAdd = ({ addCustomerModal, setAddCustomerModal,fetchCustomers }) => {
+import { X } from 'lucide-react'
+const CustomerAdd = ({ addCustomerModal, setAddCustomerModal, fetchCustomers }) => {
 
     // const [loading,setLoading]=useState(false)
     const [formData, setFormData] = useState({
@@ -13,9 +13,9 @@ const CustomerAdd = ({ addCustomerModal, setAddCustomerModal,fetchCustomers }) =
     const [errors, setErrors] = useState({});
 
     // Handle Input Change
-  const handleChange = (e) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-  };
+    const handleChange = (e) => {
+        setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    };
 
 
     function handleClose() {
@@ -25,7 +25,7 @@ const CustomerAdd = ({ addCustomerModal, setAddCustomerModal,fetchCustomers }) =
 
     }
 
-    
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -38,8 +38,8 @@ const CustomerAdd = ({ addCustomerModal, setAddCustomerModal,fetchCustomers }) =
             fetchCustomers()
         } catch (error) {
             console.error("Error adding customer:", error.response?.data?.error);
-            alert("Failed to add customer. Please try again."); 
-        } finally{
+            alert("Failed to add customer. Please try again.");
+        } finally {
             // setLoading(false);
         }
 
@@ -57,9 +57,9 @@ const CustomerAdd = ({ addCustomerModal, setAddCustomerModal,fetchCustomers }) =
 
                 {/* dialog close button  */}
                 <button onClick={handleClose} className='bg-white/20 backdrop-blur-md hover:bg-white/50 transition px-2 py-2 rounded-md fixed top-0 left-0' >
-                    {/* <LuX size={20} className="text-slate-800" /> */}
-                    close
-                     </button>
+                    <X size={22} className="dark:text-gray-700 dark:text-gray-200" />
+
+                </button>
                 {/* dialog close button  */}
 
                 {/* status */}
@@ -72,43 +72,43 @@ const CustomerAdd = ({ addCustomerModal, setAddCustomerModal,fetchCustomers }) =
                             {/* Name */}
                             <div className='flex flex-col'>
                                 <label>Name <span className='text-red-500'>*</span></label>
-                                <input 
-                                type="text" 
-                                name="name" 
-                                className='rounded-lg p-3 border-2'
-                                value={formData.name} 
-                                onChange={handleChange} 
-                                required
+                                <input
+                                    type="text"
+                                    name="name"
+                                    className='rounded-lg p-3 border-2'
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    required
                                 />
                                 {errors.name && <p className='text-red-600 text-sm'>{errors.name}</p>}
                             </div>
 
                             {/* contact_info */}
 
-                             <div className='flex flex-col'>
+                            <div className='flex flex-col'>
                                 <label>Email <span className='text-red-500'>*</span></label>
-                                <input 
-                                type="email" 
-                                name="contact_info" 
-                                className='rounded-lg p-3 border-2'
-                                placeholder='Email'
-                                value={formData.contact_info} 
-                                onChange={handleChange} 
-                                required
+                                <input
+                                    type="email"
+                                    name="contact_info"
+                                    className='rounded-lg p-3 border-2'
+                                    placeholder='Email'
+                                    value={formData.contact_info}
+                                    onChange={handleChange}
+                                    required
                                 />
                                 {errors.name && <p className='text-red-600 text-sm'>{errors.name}</p>}
                             </div>
-                            
+
 
 
                             {/* status */}
                             <div className='flex flex-col'>
                                 <label>Type <span className='text-red-500'>*</span></label>
-                                <select name="status" 
-                                className='rounded-lg p-3 border-2' 
-                                value={formData.status} 
-                                required
-                                onChange={handleChange}
+                                <select name="status"
+                                    className='rounded-lg p-3 border-2'
+                                    value={formData.status}
+                                    required
+                                    onChange={handleChange}
                                 >
                                     <option value="" disabled>Select Status</option>
                                     <option value="true">Active</option>
@@ -123,8 +123,8 @@ const CustomerAdd = ({ addCustomerModal, setAddCustomerModal,fetchCustomers }) =
 
                         <div className='w-[100%] grid grid-cols-2 justify-items-center mt-5 '>
                             <button type="button"
-                             onClick={handleClose}
-                               className='w-[75%] p-[5px] py-2 border-[1px] shadow-md rounded-lg text-white font-bold text-[1.2rem] bg-red-400 hover:bg-red-600 hover:text-white'>Cancel</button>
+                                onClick={handleClose}
+                                className='w-[75%] p-[5px] py-2 border-[1px] shadow-md rounded-lg text-white font-bold text-[1.2rem] bg-red-400 hover:bg-red-600 hover:text-white'>Cancel</button>
                             <button type="submit" className='w-[75%] p-[5px] py-2 border-[1px] shadow-md rounded-lg text-white font-bold text-[1.2rem] bg-green-500 hover:bg-green-700 hover:text-white'>Add</button>
                         </div>
 

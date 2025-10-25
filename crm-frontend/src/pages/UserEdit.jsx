@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { updateUser } from '../services/userServices';
+import { X } from 'lucide-react'
 
 const UserEdit = ({ editUserModal, setEditUserModal, fetchUser, user }) => {
 
@@ -100,7 +101,8 @@ const UserEdit = ({ editUserModal, setEditUserModal, fetchUser, user }) => {
                 {/* dialog close button  */}
                 <button onClick={handleClose} className='bg-white/20 backdrop-blur-md hover:bg-white/50 transition px-2 py-2 rounded-md fixed top-0 left-0' >
                     {/* <LuX size={20} className="text-slate-800" /> */}
-                    close
+                    <X size={22} className="dark:text-gray-700 dark:text-gray-200" />
+
                 </button>
                 {/* dialog close button  */}
 
@@ -110,7 +112,7 @@ const UserEdit = ({ editUserModal, setEditUserModal, fetchUser, user }) => {
                         <h1 className="text-2xl font-bold text-center mb-6">Edit User</h1>
 
 
-                         {/* Backend error display */}
+                        {/* Backend error display */}
                         {backendError && (
                             <p className="text-red-600 text-sm mb-2">{backendError}</p>
                         )}

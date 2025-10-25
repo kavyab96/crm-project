@@ -1,4 +1,4 @@
-import React, { Children, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
 
 const UserRoute = ({children}) => {
@@ -16,9 +16,11 @@ const UserRoute = ({children}) => {
 
     if (loading) {
         return (
-            <div className='min-h-screen flex justify-center items-center'>
-                <div className="animate-spin rounded-full h-32 border-b-2 border-blue-500"></div>
-            </div>
+
+            <>  </>
+            // <div className='min-h-screen flex justify-center items-center'>
+            //     <div className="animate-spin rounded-full h-32 border-b-2 border-blue-500"></div>
+            // </div>
 
         )
     }

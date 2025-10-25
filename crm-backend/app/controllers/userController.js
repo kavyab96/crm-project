@@ -3,6 +3,7 @@ const User = require("../models/userModel");
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const Customers = require("../models/customerModel");
 
 //user Register
 exports.userRegister = async (req, res, next) => {
@@ -182,5 +183,22 @@ exports.userLogout = async (req, res, next) => {
     }
 }
 
+//fetching admin dashboard data
+exports.getDashboardData = async (req, res, next) => {
+    try {
+        // Example static data (replace with real data fetching logic)          
+        const dashboardData = {
+            totalUsers: await User.countDocuments(),
+            adminCount: await User.countDocuments({ role: 'admin' }),
+            userCount: await User.countDocuments({ role: 'user' }),
+            totalCustomers: await Customers.countDocuments(),
+            activeCustomers: await Customers.countDocuments({ status: true }),
+            inactiveCustomers: await Customers.countDocuments({ status: false }),
+        };          
+        res.status(200).json({ message: "Dashboard data fetched successfully", data: dashboardData });
+    } catch (error) {
+        next(error);
+    }
+}
 
 

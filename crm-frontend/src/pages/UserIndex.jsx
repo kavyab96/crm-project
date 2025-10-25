@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 // import UserAdd from './UserAdd'
-import { listUsers, deleteUser } from '../services/UserServices'
+import { listUsers, deleteUser } from '../services/userServices'
 import User from './User'
 import UserEdit from './UserEdit'
 import UserFilter from './UserFilter'
